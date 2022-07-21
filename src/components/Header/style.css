@@ -1,0 +1,16 @@
+
+.header{
+background-color: var(--gray-700);
+widht: 90rem;
+height: 12.5rem;
+
+}
+
+.logoIcon{
+display: flex;
+width: 7.87rem;
+margin: 0 auto;
+padding: 4.5rem 0 5rem 0;
+}
+
+
