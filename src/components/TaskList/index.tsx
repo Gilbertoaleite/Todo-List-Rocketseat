@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiTrash2, FiPlusCircle } from 'react-icons/fi'
 
 import './style.scss';
 
-interface Task {
+export interface Task {
     id: number;
     title: string;
     isComplete: boolean;
 }
 
 export function TaskList() {
-    const [tasks, setTasks] = useState<Task[]>([]);
-    const [newTaskTitle, setNewTaskTitle] = useState('');
+    const [tasks, setTasks] = useState<Task[]>(()=> {
+        const tasksStorage = localStorage.getItem('@todo:tasks-1.0.0');
+        if (tasksStorage) {
+            return JSON.parse(tasksStorage);
+        }
+        return [];
+    });
 
+        const [newTaskTitle, setNewTaskTitle] = useState('');
+
+    useEffect(() => {
+        const stateJSON = JSON.stringify(tasks);
+        localStorage.setItem('@todo:tasks-1.0.0', stateJSON);
+        }, [tasks]);
+    
     function handleCreateNewTask() {
 
         if (!newTaskTitle) return;
@@ -22,11 +34,11 @@ export function TaskList() {
             title: newTaskTitle,
             isComplete: false
         }
-
-        setTasks(oldState => [...oldState, newTask]);
-        setNewTaskTitle('');
-
-    }
+        setTasks(oldState => 
+            [...oldState, newTask]
+            );
+            setNewTaskTitle('');
+}
 
     function handleToggleTaskCompletion(id: number) {
 
@@ -39,33 +51,28 @@ export function TaskList() {
     }
 
     function handleRemoveTask(id: number) {
-
         const filterTaskId = tasks.filter(task => task.id !== id)
-
         setTasks(filterTaskId)
-
     }
 
     return (
         <>
             <section className="container">
-            <header>
-            <div className="input-group">
-                <input
-                    type="text"
-                    placeholder="Adicionar uma nova tarefa"
-                    onChange={ (e) => setNewTaskTitle(e.target.value) }
-                    value={ newTaskTitle }
-                />
-                <button type="submit" data-testid="add-task-button" onClick={ handleCreateNewTask }>
-                    Criar
-                    <FiPlusCircle size={ 16 } color="#f2f2f2" className="iconPlus" />
-                </button>
-            </div>
-            </header>
+                <header>
+                    <div className="input-group">
+                        <input
+                            type="text"
+                            placeholder="Adicionar uma nova tarefa"
+                            onChange={ (e) => setNewTaskTitle(e.target.value) }
+                            value={ newTaskTitle }
+                        />
+                        <button type="submit" data-testid="add-task-button" onClick={ handleCreateNewTask }>
+                            Criar
+                            <FiPlusCircle size={ 16 } color="#f2f2f2" className="iconPlus" />
+                        </button>
+                    </div>
+                </header>
             </section>
-            
-
             <main >
                 <div className="tasks-list" >
                     <ul>
@@ -84,13 +91,13 @@ export function TaskList() {
                                     <p>{ task.title }</p>
                                 </div>
                                 <button type="button" data-testid="remove-task-button" onClick={ () => handleRemoveTask(task.id) }>
-                                    <FiTrash2 size={24}  />
+                                    <FiTrash2 size={ 24 } />
                                 </button>
-                            </li>    
+                            </li>
                         )) }
                     </ul>
                 </div>
-            </main> 
-            </>  
+            </main>
+        </>
     )
 }
