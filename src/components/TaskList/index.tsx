@@ -65,8 +65,8 @@ export function TaskList() {
                 <div className="task-list" >
                     <ul className="tasks">
                         { tasks.map(task => (
-                            <li key={ task.id }>
                                 <div className={ task.isComplete ? 'completed' : '' } data-testid="task" >
+                            <li className="list" key={ task.id }>
                                     <label className="radio-container">
                                         <input
                                             type="radio"
@@ -77,12 +77,14 @@ export function TaskList() {
                                         <span className="checkmark"></span>
                                     </label>
                                     <p>{ task.title }</p>
-
-                                </div>
+                                    <div className="tash">
                                 <button type="button" data-testid="remove-task-button" onClick={ () => handleRemoveTask(task.id) }>
                                     <FiTrash2  className="iconTrash" />
                                 </button>
+                                </div>
                             </li>
+                                </div>
+                                
                         )) }
 
                     </ul>
