@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FiTrash, FiPlusCircle } from 'react-icons/fi'
+import { FiTrash2, FiPlusCircle } from 'react-icons/fi'
 
 import './style.css';
 
@@ -59,33 +59,33 @@ export function TaskList() {
                     Criar
                     <FiPlusCircle size={ 16 } color="#f2f2f2" className="iconPlus" />
                 </button>
-                </div>
+            </div>
 
             <main>
-                    <div className="task-list" >
-                <ul>
-                    { tasks.map(task => (
-                        <li key={ task.id }>
-                            <div className={ task.isComplete ? 'completed' : '' } data-testid="task" >
-                                <label className="checkbox-container">
-                                    <input
-                                        type="checkbox"
-                                        readOnly
-                                        checked={ task.isComplete }
-                                        onClick={ () => handleToggleTaskCompletion(task.id) }
-                                    />
-                                    <span className="checkmark"></span>
-                                </label>
-                                <p>{ task.title }</p>
-                            </div>
+                <div className="task-list" >
+                    <ul className="tasks">
+                        { tasks.map(task => (
+                            <li key={ task.id }>
+                                <div className={ task.isComplete ? 'completed' : '' } data-testid="task" >
+                                    <label className="radio-container">
+                                        <input
+                                            type="radio"
+                                            readOnly
+                                            checked={ task.isComplete }
+                                            onClick={ () => handleToggleTaskCompletion(task.id) }
+                                        />
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <p>{ task.title }</p>
 
-                            <button type="button" data-testid="remove-task-button" onClick={ () => handleRemoveTask(task.id) }>
-                                <FiTrash size={ 16 } />
-                            </button>
-                        </li>
-                    )) }
+                                </div>
+                                <button type="button" data-testid="remove-task-button" onClick={ () => handleRemoveTask(task.id) }>
+                                    <FiTrash2  className="iconTrash" />
+                                </button>
+                            </li>
+                        )) }
 
-                </ul>
+                    </ul>
                 </div>
             </main>
         </section>

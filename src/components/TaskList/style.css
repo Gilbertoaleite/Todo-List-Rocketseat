@@ -50,7 +50,7 @@
 	border-radius: 8px;
 	color: var(--gray-100);
 
-	font-family: 'Inter';
+	font-family: 'Inter', sans-serif, 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-style: normal;
 	font-weight: 700;
 	font-size: 14px;
@@ -64,14 +64,59 @@
 	color: var(--gray-100);
 }
 
+.iconTrash {
+    
+	width: 20px;
+	height: 20px;
+	border-radius: 4px;
+    background-color: var(--gray-500);
+
+}
+
 .input-todo > button:hover {
 	background: var(--blue);
 }
 
 .task-list {
 	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 0px;
+	gap: 24px;
+
+	position: absolute;
+	width: 736px;
+	height: 451px;
+	left: calc(50% - 736px/2);
+	top: 291px;
+}
+
+.tasks {
+	display: flex;
 	flex-direction: row;
 	align-items: center;
+	padding: 16px;
+	gap: 12px;
 
-	height: 54px;
+	width: 736px;
+	height: 72px;
+	border-radius: 8px;
+	border: 1px solid var(--gray-400);
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.06);
+
+	background-color: var(--gray-500);
+
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.4;
+	color: var(--gray-100);
 }
+
+.tasks > p{
+    text-align: center;
+    color: red;
+    margin-left: -8px;
+}
+
+
