@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FiTrash2, FiPlusCircle } from 'react-icons/fi'
 
-import './style.css';
+import './style.scss';
 
 interface Task {
     id: number;
@@ -47,8 +47,10 @@ export function TaskList() {
     }
 
     return (
-        <section className=" container">
-            <div className="input-todo">
+        <>
+            <section className="container">
+            <header>
+            <div className="input-group">
                 <input
                     type="text"
                     placeholder="Adicionar uma nova tarefa"
@@ -60,16 +62,19 @@ export function TaskList() {
                     <FiPlusCircle size={ 16 } color="#f2f2f2" className="iconPlus" />
                 </button>
             </div>
+            </header>
+            </section>
+            
 
-            <main>
-                <div className="task-list" >
-                    <ul className="tasks">
+            <main >
+                <div className="tasks-list" >
+                    <ul>
                         { tasks.map(task => (
+                            <li className="task" key={ task.id }>
                                 <div className={ task.isComplete ? 'completed' : '' } data-testid="task" >
-                            <li className="list" key={ task.id }>
-                                    <label className="radio-container">
+                                    <label className="checkbox-container">
                                         <input
-                                            type="radio"
+                                            type="checkbox"
                                             readOnly
                                             checked={ task.isComplete }
                                             onClick={ () => handleToggleTaskCompletion(task.id) }
@@ -77,19 +82,15 @@ export function TaskList() {
                                         <span className="checkmark"></span>
                                     </label>
                                     <p>{ task.title }</p>
-                                    <div className="tash">
+                                </div>
                                 <button type="button" data-testid="remove-task-button" onClick={ () => handleRemoveTask(task.id) }>
-                                    <FiTrash2  className="iconTrash" />
+                                    <FiTrash2 size={24}  />
                                 </button>
-                                </div>
-                            </li>
-                                </div>
-                                
+                            </li>    
                         )) }
-
                     </ul>
                 </div>
-            </main>
-        </section>
+            </main> 
+            </>  
     )
 }

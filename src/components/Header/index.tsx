@@ -1,12 +1,14 @@
 import logoIcon from '../../assets/Logo.svg';
-import'./style.css';
+import './style.scss';
 
 export function Header() {
 
     return (
-    <header className='header'>
-    <img className='logoIcon' src={logoIcon} alt="Todo List" />
-    </header>
+        <header className='header'>
+            <div>
+            <img className='logoIcon' src={ logoIcon } alt="Todo List" />
+            </div>
+        </header>
     )
 }
 
